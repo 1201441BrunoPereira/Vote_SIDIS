@@ -33,7 +33,7 @@ public class VoteController {
 
 
     @GetMapping(value = "/{reviewId}")
-    public int getTotalVotesByReviewId(@PathVariable("reviewId") final Long reviewId ){
+    public int getTotalVotesByReviewId(@PathVariable("reviewId") final Long reviewId ) throws IOException, InterruptedException {
         return service.getTotalVotesByReviewId(reviewId);
     }
 

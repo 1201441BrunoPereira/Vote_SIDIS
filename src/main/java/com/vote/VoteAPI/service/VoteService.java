@@ -2,6 +2,7 @@ package com.vote.VoteAPI.service;
 
 import com.vote.VoteAPI.model.Vote;
 import com.vote.VoteAPI.repositories.ReviewRepository;
+import com.vote.VoteAPI.repositories.Vote2Repository;
 import com.vote.VoteAPI.repositories.VoteRepository;
 import com.vote.VoteAPI.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -27,6 +24,9 @@ public class VoteService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private Vote2Repository vote2Repository;
+
     public boolean voteReviewApproved (Vote vote) throws IOException, InterruptedException {
         return reviewRepository.isApproved(vote.getReviewId());
     }
@@ -36,8 +36,9 @@ public class VoteService {
         return repository.findAllVotes();
     }
 
-    public int getTotalVotesByReviewId(Long reviewId){
+    public int getTotalVotesByReviewId(Long reviewId) throws IOException, InterruptedException {
         List<Vote> list = new ArrayList<>();
+        int votesAPI2 = vote2Repository.getTotalVotesByReviewId(reviewId);
         list = repository.findId(reviewId);
         int sizeList = list.size();
         int votes = 0;
@@ -46,10 +47,11 @@ public class VoteService {
                 votes++;
             }
         }
+        votes = votes + votesAPI2;
         return votes;
     }
 
-    public Vote updateVoteReview(Vote vote){
+    public Vote updateVoteReview(Vote vote) throws IOException, InterruptedException {
         Long userId;
         try{
             userId = Long.valueOf(jwtUtils.getUserFromJwtToken(jwtUtils.getJwt()));
@@ -57,7 +59,8 @@ public class VoteService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,"You are not logged");
         }
         Vote existVote = repository.findReviewIdAndUserId(vote.getReviewId(), userId);
-        if(existVote == null){
+        boolean existVote2 = vote2Repository.existVote(vote.getReviewId(), userId);
+        if(existVote == null && existVote2){
             vote.setUserId(userId);
             return repository.save(vote);
         }
