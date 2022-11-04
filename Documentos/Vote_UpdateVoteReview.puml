@@ -14,7 +14,7 @@ activate User
 User -> vote1: POST/votes/updateVote
 vote1 -> Rev: GET/8081/reviews/status/{reviewId}
 Rev --> vote1 : APPROVED
-vote1 -> vote2 : 8085/votes/{reviewId}/{userId}
+vote1 -> vote2 : GET/8085/votes/{reviewId}/{userId}
 vote2 --> vote1 : NOT FOUND
 vote1 --> User: vote
 
