@@ -69,4 +69,9 @@ public class VoteService {
         }
     }
 
+    public Vote getVoteByReviewIdAndUserId(Long reviewId, Long userId){
+        Vote existVote = repository.findReviewIdAndUserId(reviewId, userId);
+        return existVote;
+    }
+
 }

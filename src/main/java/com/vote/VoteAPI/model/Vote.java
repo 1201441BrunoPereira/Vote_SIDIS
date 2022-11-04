@@ -12,6 +12,9 @@ public class Vote {
     private Long reviewId;
 
     @Column
+    private int portReview;
+
+    @Column
     private boolean vote;
 
     @Column
@@ -57,8 +60,17 @@ public class Vote {
         this.userId = userId;
     }
 
-    public Vote(Long reviewId, boolean vote) {
+    public Vote(Long reviewId, boolean vote, int portReview) {
         this.reviewId = reviewId;
+        this.portReview = portReview;
         this.vote = vote;
+    }
+
+    public int getPortReview() {
+        return portReview;
+    }
+
+    public void setPortReview(int portReview) {
+        this.portReview = portReview;
     }
 }
