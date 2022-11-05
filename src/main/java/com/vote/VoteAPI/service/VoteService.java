@@ -32,10 +32,6 @@ public class VoteService {
     }
 
 
-    public List<Vote> getAllVotes(){
-        return repository.findAllVotes();
-    }
-
     public int getTotalVotesByReviewId(Long reviewId) throws IOException, InterruptedException {
         List<Vote> list = new ArrayList<>();
         int votesAPI2 = vote2Repository.getTotalVotesByReviewId(reviewId);

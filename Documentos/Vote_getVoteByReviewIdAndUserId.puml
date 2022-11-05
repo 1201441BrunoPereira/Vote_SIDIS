@@ -4,15 +4,14 @@
 autoactivate on
 autonumber
 
-actor "ReviewAPI" as User
+actor "User" as User
 participant ":Vote1" as vote1
 participant ":Vote2" as vote2
 
 activate User
 
-User -> vote1: GET/votes/{reviewId}
-vote1 -> vote2: GET/8085/votes/{reviewId}
-vote2 --> vote1: int
-vote1 --> User: int
-
+User -> vote1: GET/votes/{reviewId}/{userId}
+vote1 -> vote2: GET/8085/votes/{reviewId}/{userId}
+vote2 --> vote1: Vote
+vote1 --> User: Vote
 @enduml

@@ -28,9 +28,6 @@ public class VoteController {
         }
     }
 
-    @GetMapping(value = "/")
-    public List<Vote> getAllVotes(){return service.getAllVotes();}
-
 
     @GetMapping(value = "/{reviewId}/")
     public int getTotalVotesByReviewId(@PathVariable("reviewId") final Long reviewId ) throws IOException, InterruptedException {

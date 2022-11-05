@@ -43,9 +43,6 @@ public class Vote2Repository {
                 HttpResponse.BodyHandlers.ofString());
 
         var code = response.statusCode();
-        if(code == 404){
-            return true;
-        }
-        return false;
+        return code == 404;
     }
 }

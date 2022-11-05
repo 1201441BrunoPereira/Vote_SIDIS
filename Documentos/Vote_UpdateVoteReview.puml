@@ -5,9 +5,9 @@ autoactivate on
 autonumber
 
 actor "User" as User
-participant ":VoteAPI" as vote1
-participant ":ReviewsApi" as Rev
-participant ":Vote" as vote2
+participant ":Vote1" as vote1
+participant ":Reviews" as Rev
+participant ":Vote2" as vote2
 
 activate User
 
