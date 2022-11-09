@@ -67,7 +67,14 @@ public class VoteService {
 
     public Vote getVoteByReviewIdAndUserId(Long reviewId, Long userId){
         Vote existVote = repository.findReviewIdAndUserId(reviewId, userId);
-        return existVote;
+        if(existVote != null){
+            return existVote;
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    public List<Vote> getAllVotes(){
+        return repository.findAllVotes();
     }
 
 }
