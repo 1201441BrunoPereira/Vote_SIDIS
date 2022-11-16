@@ -1,6 +1,6 @@
 package com.vote.VoteAPI.security;
 
-import com.vote.VoteAPI.controller.VoteController;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

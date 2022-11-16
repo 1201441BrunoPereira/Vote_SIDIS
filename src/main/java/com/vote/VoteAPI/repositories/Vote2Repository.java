@@ -16,7 +16,7 @@ public class Vote2Repository {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("http://localhost:8085/votes/" + reviewId))
+                .uri(URI.create("http://localhost:8085/votes/internal/" + reviewId))
                 .build();
 
         HttpResponse response = client.send(request,
@@ -36,7 +36,7 @@ public class Vote2Repository {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("http://localhost:8085/votes/" + reviewId + "/" + userId))
+                .uri(URI.create("http://localhost:8085/votes/internal/" + reviewId + "/" + userId))
                 .build();
 
         HttpResponse response = client.send(request,

@@ -1,16 +1,14 @@
 package com.vote.VoteAPI.controller;
 
 import com.vote.VoteAPI.model.Vote;
-import com.vote.VoteAPI.security.JwtRequestFilter;
 import com.vote.VoteAPI.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
+
 
 @RestController
 @RequestMapping("/votes")
@@ -36,10 +34,14 @@ public class VoteController {
         return service.getTotalVotesByReviewId(reviewId);
     }
 
-    @GetMapping(value = "/{reviewId}/{userId}")
-    public Vote getVoteByReviewIdAndUserId(@PathVariable("reviewId") final Long reviewId, @PathVariable("userId") final Long userId ){
-        return service.getVoteByReviewIdAndUserId(reviewId,userId);
+    @GetMapping(value = "/internal/{reviewId}")
+    public int internalGetTotalVotesByReviewId(@PathVariable("reviewId") final Long reviewId ) {
+        return service.internalGetTotalVotesByReviewId(reviewId);
     }
 
+    @GetMapping(value = "/internal/{reviewId}/{userId}")
+    public Vote internalGetVoteByReviewIdAndUserId(@PathVariable("reviewId") final Long reviewId, @PathVariable("userId") final Long userId ){
+        return service.internalGetVoteByReviewIdAndUserId(reviewId,userId);
+    }
 
 }

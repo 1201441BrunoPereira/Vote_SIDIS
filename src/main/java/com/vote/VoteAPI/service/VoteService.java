@@ -31,6 +31,19 @@ public class VoteService {
         return reviewRepository.isApproved(vote.getReviewId());
     }
 
+    public int internalGetTotalVotesByReviewId(Long reviewId){
+        List<Vote> list = new ArrayList<>();
+        list = repository.findId(reviewId);
+        int sizeList = list.size();
+        int votes = 0;
+        for (int i=0; i<sizeList; i++){
+            if(list.get(i).isVote()){
+                votes++;
+            }
+        }
+        return votes;
+    }
+
 
     public int getTotalVotesByReviewId(Long reviewId) throws IOException, InterruptedException {
         List<Vote> list = new ArrayList<>();
@@ -65,7 +78,7 @@ public class VoteService {
         }
     }
 
-    public Vote getVoteByReviewIdAndUserId(Long reviewId, Long userId){
+    public Vote internalGetVoteByReviewIdAndUserId(Long reviewId, Long userId){
         Vote existVote = repository.findReviewIdAndUserId(reviewId, userId);
         if(existVote != null){
             return existVote;
